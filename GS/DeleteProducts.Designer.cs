@@ -31,7 +31,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Home = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.Order = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
             this.AddProduct = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -61,7 +61,7 @@
             this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.Controls.Add(this.Home);
             this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.Order);
             this.panel1.Controls.Add(this.delete);
             this.panel1.Controls.Add(this.AddProduct);
             this.panel1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -102,20 +102,21 @@
             this.button4.Text = "Sales";
             this.button4.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // Order
             // 
-            this.button3.BackColor = System.Drawing.Color.Black;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(0, 272);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(157, 40);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "View Products";
-            this.button3.UseVisualStyleBackColor = false;
+            this.Order.BackColor = System.Drawing.Color.Black;
+            this.Order.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Order.FlatAppearance.BorderSize = 0;
+            this.Order.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Order.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Order.ForeColor = System.Drawing.Color.White;
+            this.Order.Location = new System.Drawing.Point(0, 272);
+            this.Order.Name = "Order";
+            this.Order.Size = new System.Drawing.Size(157, 40);
+            this.Order.TabIndex = 0;
+            this.Order.Text = "Order Products";
+            this.Order.UseVisualStyleBackColor = false;
+            this.Order.Click += new System.EventHandler(this.Order_Click);
             // 
             // delete
             // 
@@ -364,7 +365,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button Home;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Order;
         private System.Windows.Forms.Button delete;
         private System.Windows.Forms.Button AddProduct;
         private System.Windows.Forms.Panel panel3;

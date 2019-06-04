@@ -179,5 +179,12 @@ namespace GS
             DeleteProducts dp = new DeleteProducts();
             dp.ShowDialog();
         }
+
+        private void orderproducts_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Orders o = new Orders();
+            o.ShowDialog();
+        }
     }
 }

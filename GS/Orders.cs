@@ -10,19 +10,19 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 namespace GS
 {
-    public partial class Products : Form
+    public partial class Orders : Form
     {
         string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\GroceryStroreDatabase.mdf;Integrated Security=True;Connect Timeout=30";
-        public Products()
+        public Orders()
         {
             InitializeComponent();
-            BindDate();
+            BindData();
         }
-        private void BindDate()
+        private void BindData()
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlDataAdapter sda = new SqlDataAdapter("SELECT * from Products", con);
+                SqlDataAdapter sda = new SqlDataAdapter("SELECT * from ProductOrders", con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 con.Open();
@@ -37,15 +37,26 @@ namespace GS
                 con.Close();
             }
         }
-        private void Add_Click(object sender, EventArgs e)
+
+        private void Order_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("INSERT into Products(productName,productCategory,productCompany, productPrice, productQuantity)values('"+ proname.Text +"','"+procategory.Text+"','"+pcompany.Text+"','"+pprice.Text+"','"+pquantity.Text+"')",con);
+                int price = 0, pricebyquantity = 0, quantity = 0, remainingQty = 0;
+                SqlCommand cmd = new SqlCommand("SELECT productPrice from Products WHERE productName='" + proname.Text + "'", con);
                 con.Open();
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Data Added Successfully!!");
-                SqlDataAdapter sda = new SqlDataAdapter("SELECT * from Products", con);
+                SqlDataReader sdr = null;
+                sdr = cmd.ExecuteReader();
+                while (sdr.Read())
+                {
+                    price = int.Parse(sdr[0].ToString());
+                }
+                sdr.Close();
+                pricebyquantity = price * int.Parse(pquantity.Text);
+                SqlCommand Sqlcmd = new SqlCommand("INSERT into ProductOrders(productName, productCategory, productCompany, productPrice, productQuantity )values('"+proname.Text+"','"+procategory.Text+"','"+pcompany.Text+"','"+pricebyquantity+"','"+pquantity.Text+"')", con);
+                Sqlcmd.ExecuteNonQuery();
+                SqlDataAdapter sda = new SqlDataAdapter("SELECT * from ProductOrders",con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
                 dataGridView1.AutoGenerateColumns = true;
@@ -57,6 +68,22 @@ namespace GS
                 dataGridView1.Columns["productPrice"].DisplayIndex = 4;
                 dataGridView1.Columns["productQuantity"].DisplayIndex = 5;
                 con.Close();
+                SqlCommand Objcmd = new SqlCommand("SELECT productQuantity from Products WHERE productName='" + proname.Text + "'", con);
+                con.Open();
+                Objcmd.ExecuteNonQuery();
+                SqlDataReader Objsdr = null;
+                Objsdr = Objcmd.ExecuteReader();
+                while (Objsdr.Read())
+                {
+                    quantity = int.Parse(Objsdr[0].ToString());
+                }
+                con.Close();
+                remainingQty = quantity - int.Parse(pquantity.Text);
+                SqlCommand Objcmd1 = new SqlCommand("UPDATE Products SET productQuantity = '" + remainingQty + "' WHERE productName= '" + proname.Text + "'",con);
+                con.Open();
+                Objcmd1.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("DATA SAVED SUCCESSFULLY!!");
             }
         }
 
@@ -67,28 +94,18 @@ namespace GS
             f.ShowDialog();
         }
 
+        private void AddProducts_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Products p = new Products();
+            p.ShowDialog();
+        }
+
         private void Del_Click(object sender, EventArgs e)
         {
             this.Hide();
             DeleteProducts dp = new DeleteProducts();
             dp.ShowDialog();
-        }
-
-        private void Reset_Click(object sender, EventArgs e)
-        {
-            proname.Text = "";
-            pprice.Text = "";
-            pquantity.Text = "";
-            pcompany.Text = "";
-            procategory.Text = "";
-            BindDate();
-        }
-
-        private void orders_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Orders o = new Orders();
-            o.ShowDialog();
         }
     }
 }

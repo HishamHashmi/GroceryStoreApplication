@@ -83,5 +83,12 @@ namespace GS
             Form1 f = new Form1();
             f.ShowDialog();
         }
+
+        private void Order_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Orders o = new Orders();
+            o.ShowDialog();
+        }
     }
 }
