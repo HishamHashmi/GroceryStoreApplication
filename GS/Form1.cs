@@ -163,6 +163,21 @@ namespace GS
             pQty.Text = "";
             Cpy.Text = "";
             categry.Text = "";
+            BindDate();
+        }
+
+        private void addProduct_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Products p = new Products();
+            p.ShowDialog();
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            DeleteProducts dp = new DeleteProducts();
+            dp.ShowDialog();
         }
     }
 }
