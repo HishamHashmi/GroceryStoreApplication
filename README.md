@@ -20,5 +20,6 @@ The databases was developed on MS SQL SERVER and linked to the VS Studio project
 The tools that are used for this application are:
 
 MS VISUAL STUDIO 2017.
+
 MS SQL SERVER MANAGEMENT STUDIO 2017.
 
